@@ -13,6 +13,11 @@
     "release": "electron-forge publish"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.15",
+    "@mui/material": "^5.10.15",
+    "@mui/styles": "^5.10.15",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hot-loader": "4.13.0"
