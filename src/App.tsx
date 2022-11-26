@@ -1,4 +1,4 @@
-import { Greetings } from './components/Greetings'
+import { Greetings } from './components/Greetings';
 
 export function App() {
   return (

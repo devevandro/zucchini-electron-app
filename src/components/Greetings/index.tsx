@@ -1,4 +1,5 @@
 /* import { Button } from '../Button' */
+import Button from '@mui/material/Button';
 
 export function Greetings() {
   /* function handleSayHello() {
@@ -8,6 +9,6 @@ export function Greetings() {
   } */
 
   return (
-    <p style={{ color: 'white' }}>template</p>
+    <Button variant="outlined">Outlined</Button>
   )
 }
