@@ -30,7 +30,7 @@ export default function MusicPlayer() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            mt: -1,
+            mt: -2,
           }}
         >
           <IconButton aria-label="previous song">
@@ -42,12 +42,12 @@ export default function MusicPlayer() {
           >
             {paused ? (
               <PlayArrowRounded
-                sx={{ fontSize: '1.5rem' }}
+                sx={{ fontSize: '1.8rem' }}
                 htmlColor={mainIconColor}
               />
             ) : (
               <PauseRounded
-                sx={{ fontSize: '1.5rem' }}
+                sx={{ fontSize: '1.8rem' }}
                 htmlColor={mainIconColor}
               />
             )}
@@ -68,13 +68,13 @@ export default function MusicPlayer() {
         />
         <BoxContainer
           sx={{
-            mt: -2,
+            mt: -1,
           }}
         >
           <TinyText>{formatDuration(position)}</TinyText>
           <TinyText>-{formatDuration(duration - position)}</TinyText>
         </BoxContainer>
-        <BoxContainer>
+        <BoxContainer sx={{ mb: -2 }}>
           <Box sx={{ minWidth: 0 }}>
             <Typography variant="caption" color="white" fontWeight={500}>
               Jun Pulse
@@ -88,7 +88,6 @@ export default function MusicPlayer() {
             direction="row"
             sx={{
               mb: 1,
-              px: 1,
               width: 115,
             }}
             alignItems="center"

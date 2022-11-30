@@ -18,12 +18,10 @@ export const BoxContainer = styled(Box)({
 
 export const Widget = styled('div')(() => ({
   padding: 16,
-  borderRadius: 16,
   maxWidth: '100%',
   margin: 'auto',
   position: 'relative',
   zIndex: 1,
-  backgroundColor: '#575757',
 }))
 
 export const TinyText = styled(Typography)({
