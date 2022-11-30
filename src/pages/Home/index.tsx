@@ -1,7 +1,6 @@
-/* import { Button } from '../Button' */
-import Button from '@mui/material/Button';
+import HomeComponent from "../../components/Home";
 
-export function Greetings() {
+export function Home() {
   /* function handleSayHello() {
     window.Main.sendMessage('Hello World')
 
@@ -9,6 +8,6 @@ export function Greetings() {
   } */
 
   return (
-    <Button variant="outlined">Outlined</Button>
-  )
+    <HomeComponent />
+  );
 }
