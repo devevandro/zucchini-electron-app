@@ -80,7 +80,7 @@ export default function MusicPlayer() {
               Jun Pulse
             </Typography>
             <Typography color="white" noWrap>
-              <b>คนเก่าเขาทำไว้ดี (Can&apos;t win)</b>
+              <b>What the fuck!</b>
             </Typography>
           </Box>
           <Stack
