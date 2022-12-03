@@ -11,7 +11,7 @@ import FastRewindRounded from '@mui/icons-material/FastRewindRounded';
 import VolumeUpRounded from '@mui/icons-material/VolumeUpRounded';
 // import VolumeDownRounded from '@mui/icons-material/VolumeDownRounded';
 import { BoxContainer, SliderTimeIndicator, SliderVolume, TinyText, WallPaper, Widget } from './styles';
-import { formatDuration } from '../../../utils/formatDuration';
+import { formatDuration } from '../../../../utils/formatDuration';
 
 const mainIconColor = '#ffffff';
 const lightIconColor = '#ffffff';
