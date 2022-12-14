@@ -1,9 +1,9 @@
-import { Greetings } from './components/Greetings'
+import { Home } from './pages/Home';
 
 export function App() {
   return (
     <>
-      <Greetings />
+      <Home />
     </>
   )
 }
