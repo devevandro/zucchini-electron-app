@@ -22,9 +22,42 @@ export default function MusicPlayer() {
   const [position, setPosition] = useState(32);
   const [paused, setPaused] = useState(false);
 
+  /* function handleSayHello() {
+    window.Main.sendMessage('Hello World')
+    console.log('Message sent! Check main process log in terminal.')
+  } */
+
   return (
     <Box sx={{ width: '100%', overflow: 'hidden' }}>
       <Widget>
+        <BoxContainer sx={{ mb: -1 }}>
+          <Box sx={{ minWidth: 0 }}>
+            <Typography variant="caption" color="white" fontWeight={500}>
+              Jun Pulse
+            </Typography>
+            <Typography color="white" noWrap>
+              <b>What the fuck!</b>
+            </Typography>
+          </Box>
+        </BoxContainer>
+        <SliderTimeIndicator
+          aria-label="time-indicator"
+          size="small"
+          value={position}
+          min={0}
+          step={1}
+          max={duration}
+          onChange={(_, value) => setPosition(value as number)}
+          theme={theme}
+        />
+        <BoxContainer
+          sx={{
+            mt: -1,
+          }}
+        >
+          <TinyText>{formatDuration(position)}</TinyText>
+          <TinyText>-{formatDuration(duration - position)}</TinyText>
+        </BoxContainer>
         <Box
           sx={{
             display: 'flex',
@@ -55,38 +88,13 @@ export default function MusicPlayer() {
           <IconButton aria-label="next song">
             <FastForwardRounded fontSize="large" htmlColor={mainIconColor} />
           </IconButton>
-        </Box>
-        <SliderTimeIndicator
-          aria-label="time-indicator"
-          size="small"
-          value={position}
-          min={0}
-          step={1}
-          max={duration}
-          onChange={(_, value) => setPosition(value as number)}
-          theme={theme}
-        />
-        <BoxContainer
-          sx={{
-            mt: -1,
-          }}
-        >
-          <TinyText>{formatDuration(position)}</TinyText>
-          <TinyText>-{formatDuration(duration - position)}</TinyText>
-        </BoxContainer>
-        <BoxContainer sx={{ mb: -2 }}>
-          <Box sx={{ minWidth: 0 }}>
-            <Typography variant="caption" color="white" fontWeight={500}>
-              Jun Pulse
-            </Typography>
-            <Typography color="white" noWrap>
-              <b>What the fuck!</b>
-            </Typography>
-          </Box>
           <Stack
             spacing={2}
             direction="row"
             sx={{
+              position: 'absolute',
+              right: 15,
+              top: 90,
               mb: 1,
               width: 115,
             }}
@@ -99,7 +107,7 @@ export default function MusicPlayer() {
               defaultValue={30}
             />
           </Stack>
-        </BoxContainer>
+        </Box>
       </Widget>
       <WallPaper />
     </Box>

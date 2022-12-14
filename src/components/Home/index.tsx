@@ -1,14 +1,19 @@
+import { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import MusicPlayer from './components/MusicPlayer';
-import MusicTable from './components/MusicTable';
+import { MusicTable } from './components/MusicTable';
 import Header from './components/Header';
+import { HomePlayer } from './components/HomePlayer';
 
 const HomeComponent = () => {
+  const [openMusicTable, setOpenMusicTable] = useState(false);
+  const [playlistId, setPlaylistId] = useState<string>('');
+
   return (
     <>
-      <Header />
+      <Header openMusicTable={openMusicTable} returnOnHomePlayer={(value) => setOpenMusicTable(value)} />
       <Box
         sx={{
           display: 'flex',
@@ -18,9 +23,21 @@ const HomeComponent = () => {
         }}
       >
         <CssBaseline />
-        <Container component="main" sx={{ mt: 10 }} maxWidth="xl">
-          <MusicTable />
-        </Container>
+        {openMusicTable ? (
+          <Container component="main" maxWidth="xl">
+              <MusicTable playlistId={playlistId} />
+          </Container>
+        ) : (
+          <>
+            <Container sx={{ margin: '90px auto' }} maxWidth="xl" />
+            <HomePlayer
+              onClose={value => {
+                setPlaylistId(value)
+                setOpenMusicTable(true);
+              }}
+            />
+          </>
+        )}
         <Box
           component="footer"
           sx={{
@@ -34,7 +51,7 @@ const HomeComponent = () => {
         </Box>
       </Box>
     </>
-  );
-}
+  )
+};
 
 export default HomeComponent;
