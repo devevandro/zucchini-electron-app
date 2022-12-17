@@ -24,7 +24,7 @@ const HomeComponent = () => {
       >
         <CssBaseline />
         {openMusicTable ? (
-          <Container component="main" maxWidth="xl">
+          <Container sx={{ marginTop: '90px' }} component="main" maxWidth="xl">
               <MusicTable playlistId={playlistId} />
           </Container>
         ) : (

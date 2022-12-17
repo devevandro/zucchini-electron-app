@@ -46,6 +46,7 @@ const styles = ({ theme }: { theme: Theme }) =>
       display: 'flex',
       alignItems: 'center',
       boxSizing: 'border-box',
+      backgroundColor: '#345',
     },
     [`& .${classes.tableRow}`]: {
       cursor: 'pointer',
@@ -239,13 +240,13 @@ export const MusicTable: FC<MusicTableProps> = props => {
   }, []);
 
   return (
-    <Paper style={{ height: 400, width: '100%' }}>
+    <Paper style={{ height: 360, width: '100%' }}>
       <VirtualizedTable
         rowCount={rows.length}
         rowGetter={({ index }) => rows[index]}
         columns={[
           {
-            width: 780,
+            width: 120,
             label: 'Nome',
             dataKey: 'dessert',
           },
