@@ -2,14 +2,16 @@ import { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import MusicPlayer from './components/MusicPlayer';
+import { MusicPlayer } from './components/MusicPlayer';
 import { MusicTable } from './components/MusicTable';
 import Header from './components/Header';
 import { HomePlayer } from './components/HomePlayer';
+import { IItems } from '../../utils/interface/playlist';
 
 const HomeComponent = () => {
   const [openMusicTable, setOpenMusicTable] = useState(false);
   const [playlistId, setPlaylistId] = useState<string>('');
+  const [music, setMusic] = useState<IItems>();
 
   return (
     <>
@@ -24,8 +26,8 @@ const HomeComponent = () => {
       >
         <CssBaseline />
         {openMusicTable ? (
-          <Container sx={{ marginTop: '90px' }} component="main" maxWidth="xl">
-              <MusicTable playlistId={playlistId} />
+          <Container sx={{ marginTop: '95px' }} component="main" maxWidth="xl">
+              <MusicTable playlistId={playlistId} getMusic={(value) => setMusic(value)} />
           </Container>
         ) : (
           <>
@@ -47,7 +49,7 @@ const HomeComponent = () => {
             backgroundColor: '#345',
           }}
         >
-          <MusicPlayer />
+          {openMusicTable && <MusicPlayer openMusicTable={openMusicTable} music={music} />}
         </Box>
       </Box>
     </>
