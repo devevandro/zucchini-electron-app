@@ -11,7 +11,8 @@ import { IItems } from '../../utils/interface/playlist';
 const HomeComponent = () => {
   const [openMusicTable, setOpenMusicTable] = useState(false);
   const [playlistId, setPlaylistId] = useState<string>('');
-  const [music, setMusic] = useState<IItems>();
+  const [music, setMusic] = useState<IItems>({} as IItems);
+  const [musics, setMusics] = useState<IItems[]>([]);
 
   return (
     <>
@@ -27,7 +28,11 @@ const HomeComponent = () => {
         <CssBaseline />
         {openMusicTable ? (
           <Container sx={{ marginTop: '95px' }} component="main" maxWidth="xl">
-              <MusicTable playlistId={playlistId} getMusic={(value) => setMusic(value)} />
+              <MusicTable
+                playlistId={playlistId}
+                getMusic={(value) => setMusic(value)}
+                getMusics={(values) => setMusics(values)}
+              />
           </Container>
         ) : (
           <>
@@ -49,7 +54,11 @@ const HomeComponent = () => {
             backgroundColor: '#345',
           }}
         >
-          {openMusicTable && <MusicPlayer openMusicTable={openMusicTable} music={music} />}
+          {openMusicTable && <MusicPlayer
+            openMusicTable={openMusicTable}
+            music={music}
+            musics={musics}
+          />}
         </Box>
       </Box>
     </>

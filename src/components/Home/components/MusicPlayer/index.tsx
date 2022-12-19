@@ -27,11 +27,12 @@ const lightIconColor = '#ffffff';
 
 interface MusicPlayerProps {
   openMusicTable: boolean;
-  music?: IItems;
+  music: IItems;
+  musics: IItems[];
 }
 
 export const MusicPlayer: FC<MusicPlayerProps> = props => {
-  const { openMusicTable, music } = props;
+  const { openMusicTable, music, musics } = props;
   const playerRef: MutableRefObject<any> = useRef();
   const theme = useTheme();
   const [duration, setDuration] = useState<number>(0); // seconds
@@ -43,6 +44,22 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
     console.log('Message sent! Check main process log in terminal.')
     https://www.youtube.com/watch?v=ysz5S6PUM-U
   } */
+
+  const handleFindIndex = () => {
+    return musics?.findIndex(musicValue => musicValue?.id === music?.id);
+  }
+
+  const goPreviousMusic = () => {
+    const prevIndex = handleFindIndex();
+    const nextIndex = prevIndex - 1 < musics?.length ? prevIndex - 1 : 0;
+    return nextIndex;
+  }
+
+  const goNextMusic = () => {
+    const prevIndex = handleFindIndex();
+    const nextIndex = prevIndex + 1 < musics?.length ? prevIndex + 1 : 0;
+    return nextIndex;
+  }
 
   return (
     <>
@@ -89,7 +106,7 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
               mt: -2,
             }}
           >
-            <IconButton aria-label="previous song">
+            <IconButton aria-label="previous song" onClick={goPreviousMusic}>
               <FastRewindRounded fontSize="large" htmlColor={mainIconColor} />
             </IconButton>
             <IconButton
@@ -112,7 +129,7 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
                 />
               )}
             </IconButton>
-            <IconButton aria-label="next song">
+            <IconButton aria-label="next song" onClick={goNextMusic}>
               <FastForwardRounded fontSize="large" htmlColor={mainIconColor} />
             </IconButton>
             <Stack

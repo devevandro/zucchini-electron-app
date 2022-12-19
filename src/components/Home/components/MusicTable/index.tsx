@@ -10,10 +10,11 @@ import axios from 'axios';
 interface MusicTableProps {
   playlistId: string;
   getMusic: (music: IItems) => void;
+  getMusics: (musics: IItems[]) => void;
 }
 
 export const MusicTable: FC<MusicTableProps> = props => {
-  const { playlistId, getMusic } = props;
+  const { playlistId, getMusic, getMusics } = props;
   const [musics, setMusics] = useState<IItems[]>();
 
   useEffect(() => {
@@ -28,8 +29,9 @@ export const MusicTable: FC<MusicTableProps> = props => {
     });
   }, []);
 
-  const handleGetMusic = (music: IItems) => {
+  const handleMusics = (music: IItems, musics: IItems[]) => {
     getMusic(music);
+    getMusics(musics);
   };
 
   return (
@@ -44,7 +46,7 @@ export const MusicTable: FC<MusicTableProps> = props => {
               marginBottom: '8px',
               cursor: 'pointer'
             }}
-            onClick={() => handleGetMusic(music)}
+            onClick={() => handleMusics(music, musics)}
           >
             <CardMedia
               component="img"
