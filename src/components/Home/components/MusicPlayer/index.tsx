@@ -1,4 +1,4 @@
-import { useState, useRef, FC, MutableRefObject } from 'react';
+import { useState, useRef, FC, MutableRefObject, useEffect } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -26,17 +26,20 @@ const mainIconColor = '#ffffff';
 const lightIconColor = '#ffffff';
 
 interface MusicPlayerProps {
-  openMusicTable: boolean;
+  doubleClick: boolean;
   music: IItems;
   musics: IItems[];
+  openMusicTable: boolean;
+  setIndex: (index: number) => void;
   prevNextMusic: (music: IItems) => void;
 }
 
 export const MusicPlayer: FC<MusicPlayerProps> = props => {
-  const { openMusicTable, music, musics, prevNextMusic } = props;
+  const { doubleClick, openMusicTable, music, musics, prevNextMusic, setIndex } = props;
   const playerRef: MutableRefObject<any> = useRef();
   const theme = useTheme();
   const [duration, setDuration] = useState<number>(0); // seconds
+  const [musicIndex, setMusicIndex] = useState<number>(-1); // seconds
   const [position, setPosition] = useState(32);
   const [paused, setPaused] = useState(false);
 
@@ -46,6 +49,10 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
     https://www.youtube.com/watch?v=ysz5S6PUM-U
   } */
 
+  useEffect(() => {
+    setPaused(doubleClick);
+  }, [doubleClick]);
+
   const handleFindIndex = () => {
     return musics?.findIndex(musicValue => musicValue?.id === music?.id);
   }
@@ -53,22 +60,31 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
   const goPreviousMusic = () => {
     const prevIndex = handleFindIndex();
     const nextIndex = prevIndex - 1 < musics?.length ? prevIndex - 1 : 0;
+    setIndex(nextIndex);
+    setMusicIndex(nextIndex);
     prevNextMusic(musics[nextIndex]);
   }
 
   const goNextMusic = () => {
     const prevIndex = handleFindIndex();
     const nextIndex = prevIndex + 1 < musics?.length ? prevIndex + 1 : 0;
+    setIndex(nextIndex);
+    setMusicIndex(nextIndex);
     prevNextMusic(musics[nextIndex]);
   }
 
   return (
     <>
-      {openMusicTable && <> <Player
-        playerRef={playerRef}
-        paused={paused} 
-        url={`https://www.youtube.com/watch?v=${music?.snippet?.resourceId?.videoId}`}
-      /></>}
+      {openMusicTable && (
+        <>
+          {' '}
+          <Player
+            playerRef={playerRef}
+            paused={paused}
+            url={`https://www.youtube.com/watch?v=${music?.snippet?.resourceId?.videoId}`}
+          />
+        </>
+      )}
       <Box sx={{ width: '100%', overflow: 'hidden' }}>
         <Widget>
           <BoxContainer sx={{ mb: -1 }}>
@@ -107,15 +123,18 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
               mt: -2,
             }}
           >
-            <IconButton aria-label="previous song" onClick={goPreviousMusic}>
+            <IconButton
+              aria-label="previous song"
+              onClick={() => musicIndex !== 0 && goPreviousMusic()}
+            >
               <FastRewindRounded fontSize="large" htmlColor={mainIconColor} />
             </IconButton>
             <IconButton
               aria-label={paused ? 'play' : 'pause'}
               onClick={() => {
-                setPaused(!paused);
-                setDuration(playerRef?.current?.getDuration());
-                console.log('hands-duration', playerRef?.current?.getDuration());
+                setPaused(!paused)
+                setDuration(playerRef?.current?.getDuration())
+                console.log('hands-duration', playerRef?.current?.getDuration())
               }}
             >
               {!paused ? (

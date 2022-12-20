@@ -11,6 +11,8 @@ import { IItems } from '../../utils/interface/playlist';
 const HomeComponent = () => {
   const [openMusicTable, setOpenMusicTable] = useState(false);
   const [playlistId, setPlaylistId] = useState<string>('');
+  const [doubleClick, setDoubleClick] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
   const [music, setMusic] = useState<IItems>({} as IItems);
   const [musics, setMusics] = useState<IItems[]>([]);
 
@@ -32,7 +34,9 @@ const HomeComponent = () => {
         {openMusicTable ? (
           <Container sx={{ marginTop: '95px' }} component="main" maxWidth="xl">
             <MusicTable
+              currentIndex={currentIndex}
               playlistId={playlistId}
+              onClickMusic={(value) => setDoubleClick(value)}
               getMusic={value => setMusic(value)}
               getMusics={values => setMusics(values)}
             />
@@ -60,9 +64,11 @@ const HomeComponent = () => {
           {openMusicTable && (
             <MusicPlayer
               openMusicTable={openMusicTable}
+              doubleClick={doubleClick}
               music={music}
               musics={musics}
               prevNextMusic={(musicToChange) => setMusic(musicToChange)}
+              setIndex={(value) => setCurrentIndex(value)}
             />
           )}
         </Box>
