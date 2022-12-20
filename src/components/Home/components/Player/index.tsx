@@ -6,10 +6,11 @@ interface PlayerProps {
   paused: boolean;
   url: string;
   playerRef: MutableRefObject<any>;
+  onFinish: () => void;
 }
 
 export const Player: FC<PlayerProps> = props => {
-  const { paused, url, playerRef } = props;
+  const { paused, url, playerRef, onFinish } = props;
 
   return (
     <Box sx={{ display: 'none' }}>
@@ -17,6 +18,7 @@ export const Player: FC<PlayerProps> = props => {
         ref={playerRef}
         playing={paused}
         url={url}
+        onEnded={onFinish}
       />
     </Box>
   )

@@ -82,6 +82,7 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
             playerRef={playerRef}
             paused={paused}
             url={`https://www.youtube.com/watch?v=${music?.snippet?.resourceId?.videoId}`}
+            onFinish={goNextMusic}
           />
         </>
       )}
@@ -132,9 +133,9 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
             <IconButton
               aria-label={paused ? 'play' : 'pause'}
               onClick={() => {
-                setPaused(!paused)
-                setDuration(playerRef?.current?.getDuration())
-                console.log('hands-duration', playerRef?.current?.getDuration())
+                setPaused(!paused);
+                setDuration(playerRef?.current?.getDuration());
+                console.log('hands-duration', playerRef?.current?.getDuration());
               }}
             >
               {!paused ? (
