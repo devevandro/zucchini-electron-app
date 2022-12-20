@@ -29,10 +29,11 @@ interface MusicPlayerProps {
   openMusicTable: boolean;
   music: IItems;
   musics: IItems[];
+  prevNextMusic: (music: IItems) => void;
 }
 
 export const MusicPlayer: FC<MusicPlayerProps> = props => {
-  const { openMusicTable, music, musics } = props;
+  const { openMusicTable, music, musics, prevNextMusic } = props;
   const playerRef: MutableRefObject<any> = useRef();
   const theme = useTheme();
   const [duration, setDuration] = useState<number>(0); // seconds
@@ -52,13 +53,13 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
   const goPreviousMusic = () => {
     const prevIndex = handleFindIndex();
     const nextIndex = prevIndex - 1 < musics?.length ? prevIndex - 1 : 0;
-    return nextIndex;
+    prevNextMusic(musics[nextIndex]);
   }
 
   const goNextMusic = () => {
     const prevIndex = handleFindIndex();
     const nextIndex = prevIndex + 1 < musics?.length ? prevIndex + 1 : 0;
-    return nextIndex;
+    prevNextMusic(musics[nextIndex]);
   }
 
   return (

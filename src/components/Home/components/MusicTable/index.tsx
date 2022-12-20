@@ -15,7 +15,8 @@ interface MusicTableProps {
 
 export const MusicTable: FC<MusicTableProps> = props => {
   const { playlistId, getMusic, getMusics } = props;
-  const [musics, setMusics] = useState<IItems[]>();
+  const [musics, setMusics] = useState<IItems[]>([]);
+  const [currentMusic, setCurrentMusic] = useState<IItems>({} as IItems);
 
   useEffect(() => {
     const response = axios.get<any>(
@@ -44,9 +45,13 @@ export const MusicTable: FC<MusicTableProps> = props => {
             sx={{
               display: 'flex',
               marginBottom: '8px',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              opacity: music === currentMusic ? '0.4' : '',
             }}
-            onClick={() => handleMusics(music, musics)}
+            onClick={(e) => {
+              handleMusics(music, musics);
+              setCurrentMusic(music);
+            }}
           >
             <CardMedia
               component="img"

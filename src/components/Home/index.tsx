@@ -16,7 +16,10 @@ const HomeComponent = () => {
 
   return (
     <>
-      <Header openMusicTable={openMusicTable} returnOnHomePlayer={(value) => setOpenMusicTable(value)} />
+      <Header
+        openMusicTable={openMusicTable}
+        returnOnHomePlayer={value => setOpenMusicTable(value)}
+      />
       <Box
         sx={{
           display: 'flex',
@@ -28,11 +31,11 @@ const HomeComponent = () => {
         <CssBaseline />
         {openMusicTable ? (
           <Container sx={{ marginTop: '95px' }} component="main" maxWidth="xl">
-              <MusicTable
-                playlistId={playlistId}
-                getMusic={(value) => setMusic(value)}
-                getMusics={(values) => setMusics(values)}
-              />
+            <MusicTable
+              playlistId={playlistId}
+              getMusic={value => setMusic(value)}
+              getMusics={values => setMusics(values)}
+            />
           </Container>
         ) : (
           <>
@@ -40,7 +43,7 @@ const HomeComponent = () => {
             <HomePlayer
               onClose={value => {
                 setPlaylistId(value)
-                setOpenMusicTable(true);
+                setOpenMusicTable(true)
               }}
             />
           </>
@@ -54,15 +57,18 @@ const HomeComponent = () => {
             backgroundColor: '#345',
           }}
         >
-          {openMusicTable && <MusicPlayer
-            openMusicTable={openMusicTable}
-            music={music}
-            musics={musics}
-          />}
+          {openMusicTable && (
+            <MusicPlayer
+              openMusicTable={openMusicTable}
+              music={music}
+              musics={musics}
+              prevNextMusic={(musicToChange) => setMusic(musicToChange)}
+            />
+          )}
         </Box>
       </Box>
     </>
   )
-};
+}
 
-export default HomeComponent;
+export default HomeComponent
