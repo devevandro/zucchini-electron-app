@@ -9,11 +9,12 @@ interface PlayerProps {
   paused: boolean;
   playerRef: MutableRefObject<any>;
   onFinish: () => void;
+  onDuration: (duration: number) => void;
   onProgress: (progress: any) => void;
 }
 
 export const Player: FC<PlayerProps> = props => {
-  const { paused, url, muted, volume, playerRef, onFinish, onProgress } = props;
+  const { paused, url, muted, volume, playerRef, onFinish, onProgress, onDuration } = props;
 
   return (
     <Box sx={{ display: 'none' }}>
@@ -24,6 +25,7 @@ export const Player: FC<PlayerProps> = props => {
         volume={volume}
         muted={muted}
         onEnded={onFinish}
+        onDuration={onDuration}
         onProgress={onProgress}
       />
     </Box>

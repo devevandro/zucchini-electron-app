@@ -105,6 +105,7 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
             muted={muted}
             volume={volume / 100}
             url={`https://www.youtube.com/watch?v=${music?.snippet?.resourceId?.videoId}`}
+            onDuration={musicDuration => setDuration(musicDuration)}
             onFinish={goNextMusic}
             onProgress={value => {
               setPosition(Math.floor(value?.playedSeconds))
@@ -140,7 +141,7 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
             }}
           >
             <TinyText>{formatDuration(position)}</TinyText>
-            <TinyText>{formatDuration(duration)}</TinyText>
+            <TinyText>- {formatDuration(duration - position)}</TinyText>
           </BoxContainer>
           <Box
             sx={{
@@ -158,11 +159,7 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
             </IconButton>
             <IconButton
               aria-label={paused ? 'play' : 'pause'}
-              onClick={() => {
-                setPaused(!paused)
-                setDuration(playerRef?.current?.getDuration())
-                console.log('hands-duration', playerRef?.current?.getDuration())
-              }}
+              onClick={() => setPaused(!paused)}
             >
               {!paused ? (
                 <PlayArrowRounded
