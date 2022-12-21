@@ -1,4 +1,4 @@
-interface IItems {
+export interface IItems {
   kind: string;
   etag: string;
   id: string;

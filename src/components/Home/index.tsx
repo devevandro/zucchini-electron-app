@@ -2,18 +2,26 @@ import { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import MusicPlayer from './components/MusicPlayer';
+import { MusicPlayer } from './components/MusicPlayer';
 import { MusicTable } from './components/MusicTable';
 import Header from './components/Header';
 import { HomePlayer } from './components/HomePlayer';
+import { IItems } from '../../utils/interface/playlist';
 
 const HomeComponent = () => {
   const [openMusicTable, setOpenMusicTable] = useState(false);
   const [playlistId, setPlaylistId] = useState<string>('');
+  const [doubleClick, setDoubleClick] = useState<boolean>(false);
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
+  const [music, setMusic] = useState<IItems>({} as IItems);
+  const [musics, setMusics] = useState<IItems[]>([]);
 
   return (
     <>
-      <Header openMusicTable={openMusicTable} returnOnHomePlayer={(value) => setOpenMusicTable(value)} />
+      <Header
+        openMusicTable={openMusicTable}
+        returnOnHomePlayer={value => setOpenMusicTable(value)}
+      />
       <Box
         sx={{
           display: 'flex',
@@ -24,8 +32,14 @@ const HomeComponent = () => {
       >
         <CssBaseline />
         {openMusicTable ? (
-          <Container component="main" maxWidth="xl">
-              <MusicTable playlistId={playlistId} />
+          <Container sx={{ marginTop: '95px' }} component="main" maxWidth="xl">
+            <MusicTable
+              currentIndex={currentIndex}
+              playlistId={playlistId}
+              onClickMusic={(value) => setDoubleClick(value)}
+              getMusic={value => setMusic(value)}
+              getMusics={values => setMusics(values)}
+            />
           </Container>
         ) : (
           <>
@@ -33,7 +47,7 @@ const HomeComponent = () => {
             <HomePlayer
               onClose={value => {
                 setPlaylistId(value)
-                setOpenMusicTable(true);
+                setOpenMusicTable(true)
               }}
             />
           </>
@@ -47,11 +61,20 @@ const HomeComponent = () => {
             backgroundColor: '#345',
           }}
         >
-          <MusicPlayer />
+          {openMusicTable && (
+            <MusicPlayer
+              openMusicTable={openMusicTable}
+              doubleClick={doubleClick}
+              music={music}
+              musics={musics}
+              prevNextMusic={(musicToChange) => setMusic(musicToChange)}
+              setIndex={(value) => setCurrentIndex(value)}
+            />
+          )}
         </Box>
       </Box>
     </>
   )
-};
+}
 
-export default HomeComponent;
+export default HomeComponent

@@ -53,7 +53,7 @@ const Header: FC<HeaderProps> = props => {
           <Toolbar>
             <SettingsIcon sx={{ ml: 3 }} />
             <Typography variant="h6" color="inherit" noWrap sx={{ ml: 1 }}>
-              Configurações
+              Player
             </Typography>
           </Toolbar>
         </Box>

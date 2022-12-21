@@ -1,6 +1,7 @@
-import { Button, TextField } from '@mui/material';
-import { styled } from '@mui/styles';
-import Dialog from '@mui/material/Dialog';
+import { Button, TextField } from '@mui/material'
+import { styled } from '@mui/styles'
+import Dialog from '@mui/material/Dialog'
+import DialogContentText from '@mui/material/DialogContentText'
 
 export const AddButton = styled(Button)({
   boxShadow: 'none',
@@ -34,7 +35,7 @@ export const AddButton = styled(Button)({
     backgroundColor: 'transparent',
     borderColor: '#ffffff',
   },
-});
+})
 
 export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -43,7 +44,7 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogActions-root': {
     background: '#345',
   },
-}));
+}))
 
 export const TextFieldStyled = styled(TextField)(({ theme }) => ({
   border: '1px solid transparent',
@@ -51,5 +52,12 @@ export const TextFieldStyled = styled(TextField)(({ theme }) => ({
 
   '& .MuiInputBase-input-MuiInput-input:focus': {
     color: '#345',
-  }
-}));
+  },
+}))
+
+export const DialogContentTextStyled = styled(DialogContentText)(() => ({
+  width: '410px',
+  marginBottom: '25px',
+  color: '#ffffff',
+  textAlign: 'justify',
+}))
