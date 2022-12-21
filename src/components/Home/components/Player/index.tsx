@@ -3,14 +3,17 @@ import Box from '@mui/material/Box';
 import ReactPlayer from 'react-player';
 
 interface PlayerProps {
-  paused: boolean;
   url: string;
+  muted: boolean;
+  volume: number;
+  paused: boolean;
   playerRef: MutableRefObject<any>;
   onFinish: () => void;
+  onProgress: (progress: any) => void;
 }
 
 export const Player: FC<PlayerProps> = props => {
-  const { paused, url, playerRef, onFinish } = props;
+  const { paused, url, muted, volume, playerRef, onFinish, onProgress } = props;
 
   return (
     <Box sx={{ display: 'none' }}>
@@ -18,7 +21,10 @@ export const Player: FC<PlayerProps> = props => {
         ref={playerRef}
         playing={paused}
         url={url}
+        volume={volume}
+        muted={muted}
         onEnded={onFinish}
+        onProgress={onProgress}
       />
     </Box>
   )

@@ -19,6 +19,7 @@
     "@mui/material": "^5.10.15",
     "@mui/styles": "^5.10.15",
     "@types/json-server": "^0.14.4",
+    "@types/react-window": "^1.8.5",
     "axios": "^1.2.1",
     "clsx": "^1.2.1",
     "dotenv": "^16.0.3",
@@ -27,7 +28,9 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hot-loader": "4.13.0",
-    "react-virtualized": "^9.22.3"
+    "react-player": "^2.11.0",
+    "react-virtualized": "^9.22.3",
+    "react-window": "^1.8.8"
   },
   "devDependencies": {
     "@babel/core": "7.14.6",

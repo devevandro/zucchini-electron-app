@@ -1,15 +1,15 @@
-import { useState, useRef, FC, MutableRefObject, useEffect } from 'react';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
-import PauseRounded from '@mui/icons-material/PauseRounded';
-import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
-import FastForwardRounded from '@mui/icons-material/FastForwardRounded';
-import FastRewindRounded from '@mui/icons-material/FastRewindRounded';
-import VolumeUpRounded from '@mui/icons-material/VolumeUpRounded';
-// import VolumeDownRounded from '@mui/icons-material/VolumeDownRounded';
+import { useState, useRef, FC, MutableRefObject, useEffect } from 'react'
+import { useTheme } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import Stack from '@mui/material/Stack'
+import PauseRounded from '@mui/icons-material/PauseRounded'
+import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded'
+import FastForwardRounded from '@mui/icons-material/FastForwardRounded'
+import FastRewindRounded from '@mui/icons-material/FastRewindRounded'
+import VolumeUpRounded from '@mui/icons-material/VolumeUpRounded'
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import {
   BoxContainer,
   SliderTimeIndicator,
@@ -17,31 +17,40 @@ import {
   TinyText,
   WallPaper,
   Widget,
-} from './styles';
-import { formatDuration } from '../../../../utils/formatDuration';
-import { Player } from '../Player';
-import { IItems } from '../../../../utils/interface/playlist';
+} from './styles'
+import { formatDuration } from '../../../../utils/formatDuration'
+import { Player } from '../Player'
+import { IItems } from '../../../../utils/interface/playlist'
 
-const mainIconColor = '#ffffff';
-const lightIconColor = '#ffffff';
+const mainIconColor = '#ffffff'
+const lightIconColor = '#ffffff'
 
 interface MusicPlayerProps {
-  doubleClick: boolean;
-  music: IItems;
-  musics: IItems[];
-  openMusicTable: boolean;
-  setIndex: (index: number) => void;
-  prevNextMusic: (music: IItems) => void;
+  doubleClick: boolean
+  music: IItems
+  musics: IItems[]
+  openMusicTable: boolean
+  setIndex: (index: number) => void
+  prevNextMusic: (music: IItems) => void
 }
 
 export const MusicPlayer: FC<MusicPlayerProps> = props => {
-  const { doubleClick, openMusicTable, music, musics, prevNextMusic, setIndex } = props;
-  const playerRef: MutableRefObject<any> = useRef();
-  const theme = useTheme();
-  const [duration, setDuration] = useState<number>(0); // seconds
-  const [musicIndex, setMusicIndex] = useState<number>(-1); // seconds
-  const [position, setPosition] = useState(32);
-  const [paused, setPaused] = useState(false);
+  const {
+    doubleClick,
+    openMusicTable,
+    music,
+    musics,
+    prevNextMusic,
+    setIndex,
+  } = props
+  const playerRef: MutableRefObject<any> = useRef()
+  const theme = useTheme()
+  const [duration, setDuration] = useState<number>(0)
+  const [musicIndex, setMusicIndex] = useState<number>(-1)
+  const [position, setPosition] = useState(0)
+  const [paused, setPaused] = useState<boolean>(false)
+  const [muted, setMuted] = useState<boolean>(false)
+  const [volume, setVolume] = useState<number>(30);
 
   /* function handleSayHello() {
     window.Main.sendMessage('Hello World')
@@ -50,28 +59,40 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
   } */
 
   useEffect(() => {
-    setPaused(doubleClick);
-  }, [doubleClick]);
+    setPaused(doubleClick)
+  }, [doubleClick])
 
   const handleFindIndex = () => {
-    return musics?.findIndex(musicValue => musicValue?.id === music?.id);
+    return musics?.findIndex(musicValue => musicValue?.id === music?.id)
   }
 
   const goPreviousMusic = () => {
-    const prevIndex = handleFindIndex();
-    const nextIndex = prevIndex - 1 < musics?.length ? prevIndex - 1 : 0;
-    setIndex(nextIndex);
-    setMusicIndex(nextIndex);
-    prevNextMusic(musics[nextIndex]);
+    const prevIndex = handleFindIndex()
+    const nextIndex = prevIndex - 1 < musics?.length ? prevIndex - 1 : 0
+    setIndex(nextIndex)
+    setMusicIndex(nextIndex)
+    prevNextMusic(musics[nextIndex])
   }
 
   const goNextMusic = () => {
-    const prevIndex = handleFindIndex();
-    const nextIndex = prevIndex + 1 < musics?.length ? prevIndex + 1 : 0;
-    setIndex(nextIndex);
-    setMusicIndex(nextIndex);
-    prevNextMusic(musics[nextIndex]);
+    const prevIndex = handleFindIndex()
+    const nextIndex = prevIndex + 1 < musics?.length ? prevIndex + 1 : 0
+    setIndex(nextIndex)
+    setMusicIndex(nextIndex)
+    prevNextMusic(musics[nextIndex])
   }
+
+  const handleVolumeChange = (newVolume: number) => {
+    if (newVolume === 0) {
+      setMuted(true);
+      setVolume(0);
+    } else {
+      setMuted(false);
+      setVolume(30);
+    }
+
+    setVolume(newVolume);
+  };
 
   return (
     <>
@@ -81,8 +102,13 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
           <Player
             playerRef={playerRef}
             paused={paused}
+            muted={muted}
+            volume={volume / 100}
             url={`https://www.youtube.com/watch?v=${music?.snippet?.resourceId?.videoId}`}
             onFinish={goNextMusic}
+            onProgress={value => {
+              setPosition(Math.floor(value?.playedSeconds))
+            }}
           />
         </>
       )}
@@ -103,7 +129,7 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
             size="small"
             value={position}
             min={0}
-            step={1}
+            step={0.1}
             max={duration}
             onChange={(_, value) => setPosition(value as number)}
             theme={theme}
@@ -114,7 +140,7 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
             }}
           >
             <TinyText>{formatDuration(position)}</TinyText>
-            <TinyText>-{formatDuration(duration - position)}</TinyText>
+            <TinyText>{formatDuration(duration)}</TinyText>
           </BoxContainer>
           <Box
             sx={{
@@ -133,9 +159,9 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
             <IconButton
               aria-label={paused ? 'play' : 'pause'}
               onClick={() => {
-                setPaused(!paused);
-                setDuration(playerRef?.current?.getDuration());
-                console.log('hands-duration', playerRef?.current?.getDuration());
+                setPaused(!paused)
+                setDuration(playerRef?.current?.getDuration())
+                console.log('hands-duration', playerRef?.current?.getDuration())
               }}
             >
               {!paused ? (
@@ -165,9 +191,22 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
               }}
               alignItems="center"
             >
-              {/* <VolumeDownRounded htmlColor={lightIconColor} /> */}
-              <VolumeUpRounded htmlColor={lightIconColor} />
-              <SliderVolume aria-label="Volume" defaultValue={30} />
+              <Box sx={{ cursor: 'pointer' }} onClick={() => {
+                setMuted(!muted);
+                setVolume(volume ? 0 : 30);
+              }}>
+                {!muted ? (
+                  <VolumeUpRounded htmlColor={lightIconColor} />
+                ) : (
+                  <VolumeOffIcon htmlColor={lightIconColor} />
+                )}
+              </Box>
+              <SliderVolume
+                aria-label="Volume"
+                defaultValue={volume}
+                value={volume}
+                onChange={(_, value) => handleVolumeChange(value as number)}
+              />
             </Stack>
           </Box>
         </Widget>
