@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { IItems, IPlaylist } from '../../../../utils/interface/playlist';
+import { IItems, IPlaylist } from '../../../../../utils/interface/playlist';
 import { CardStyled } from './styles';
 import axios from 'axios';
 

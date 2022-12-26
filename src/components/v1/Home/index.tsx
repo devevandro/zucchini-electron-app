@@ -6,7 +6,7 @@ import { MusicPlayer } from './components/MusicPlayer';
 import { MusicTable } from './components/MusicTable';
 import Header from './components/Header';
 import { HomePlayer } from './components/HomePlayer';
-import { IItems } from '../../utils/interface/playlist';
+import { IItems } from '../../../utils/interface/playlist';
 
 const HomeComponent = () => {
   const [openMusicTable, setOpenMusicTable] = useState(false);

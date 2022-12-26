@@ -18,9 +18,9 @@ import {
   WallPaper,
   Widget,
 } from './styles'
-import { formatDuration } from '../../../../utils/formatDuration'
+import { formatDuration } from '../../../../../utils/formatDuration'
 import { Player } from '../Player'
-import { IItems } from '../../../../utils/interface/playlist'
+import { IItems } from '../../../../../utils/interface/playlist'
 
 const mainIconColor = '#ffffff'
 const lightIconColor = '#ffffff'
