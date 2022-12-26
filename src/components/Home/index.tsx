@@ -31,30 +31,40 @@ const HomeComponent = () => {
         }}
       >
         <CssBaseline />
-        {openMusicTable ? (
-          <Container sx={{ marginTop: '95px' }} component="main" maxWidth="xl">
-            <MusicTable
-              currentIndex={currentIndex}
-              playlistId={playlistId}
-              onClickMusic={(value) => setDoubleClick(value)}
-              getMusic={value => setMusic(value)}
-              getMusics={values => setMusics(values)}
-            />
-          </Container>
-        ) : (
-          <>
-            <Container sx={{ margin: '90px auto' }} maxWidth="xl" />
-            <HomePlayer
-              onClose={value => {
-                setPlaylistId(value)
-                setOpenMusicTable(true)
-              }}
-            />
-          </>
-        )}
+        <Box>
+          {openMusicTable ? (
+            <Container
+              sx={{ marginTop: '95px' }}
+              component="main"
+              maxWidth="xl"
+            >
+              <MusicTable
+                currentIndex={currentIndex}
+                playlistId={playlistId}
+                onClickMusic={value => setDoubleClick(value)}
+                getMusic={value => setMusic(value)}
+                getMusics={values => setMusics(values)}
+              />
+            </Container>
+          ) : (
+            <>
+              <Container sx={{ marginTop: '90px' }} maxWidth="xl">
+              <HomePlayer
+                onClose={value => {
+                  setPlaylistId(value);
+                  setOpenMusicTable(true);
+                }}
+              />
+              </Container>
+            </>
+          )}
+        </Box>
         <Box
           component="footer"
           sx={{
+            position: 'fixed',
+            width: '100%',
+            bottom: 0,
             py: 1,
             px: 2,
             mt: 'auto',
@@ -67,8 +77,8 @@ const HomeComponent = () => {
               doubleClick={doubleClick}
               music={music}
               musics={musics}
-              prevNextMusic={(musicToChange) => setMusic(musicToChange)}
-              setIndex={(value) => setCurrentIndex(value)}
+              prevNextMusic={musicToChange => setMusic(musicToChange)}
+              setIndex={value => setCurrentIndex(value)}
             />
           )}
         </Box>

@@ -19,7 +19,7 @@ const Header: FC<HeaderProps> = props => {
   return (
     <>
       <AppBar
-        position="absolute"
+        position="fixed"
         sx={{
           backgroundColor: '#345',
         }}

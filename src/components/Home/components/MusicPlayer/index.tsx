@@ -117,10 +117,10 @@ export const MusicPlayer: FC<MusicPlayerProps> = props => {
         <Widget>
           <BoxContainer sx={{ mb: -1 }}>
             <Box sx={{ minWidth: 0 }}>
-              <Typography variant="caption" color="white" fontWeight={500}>
+              <Typography variant="caption" color="white" fontWeight={700} fontSize={12}>
                 {music?.snippet?.title}
               </Typography>
-              <Typography color="white" noWrap>
+              <Typography color="white" noWrap fontSize={10}>
                 <b>{music?.snippet?.title}</b>
               </Typography>
             </Box>

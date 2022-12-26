@@ -50,7 +50,7 @@ export const MusicTable: FC<MusicTableProps> = props => {
               key={index}
               sx={{
                 display: 'flex',
-                marginBottom: '8px',
+                marginBottom: '5px',
                 cursor: 'pointer',
                 opacity:
                   music ===
