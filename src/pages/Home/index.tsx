@@ -1,4 +1,4 @@
-import HomeComponent from "../../components/v1/Home";
+import HomeComponent from "../../components/v2/Home";
 
 export function Home() {
   return (
